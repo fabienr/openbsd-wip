@@ -1,0 +1,19 @@
+https://github.com/develar/app-builder/issues/105
+
+Index: pkg/node-modules/nodeModuleCollector.go
+--- pkg/node-modules/nodeModuleCollector.go.orig
++++ pkg/node-modules/nodeModuleCollector.go
+@@ -193,6 +193,13 @@ func (t *Collector) resolveDependency(parentNodeModule
+ 	if realParentNodeModuleDir == "" {
+ 		return nil, nil
+ 	}
++
++	// XXX consumers expect the node_modules shape or the dependency tree ?
++	// hoist the depends to the actual parent
++	if realParentNodeModuleDir != parentNodeModuleDir {
++		dependencyNameToDependency = t.NodeModuleDirToDependencyMap[realParentNodeModuleDir]
++	}
++
+ 	dependencyDir := filepath.Join(realParentNodeModuleDir, name)
+ 	dependency, err := readPackageJson(dependencyDir)
+ 	if err != nil {

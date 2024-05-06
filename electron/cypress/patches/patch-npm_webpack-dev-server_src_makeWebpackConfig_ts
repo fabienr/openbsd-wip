@@ -1,0 +1,12 @@
+Index: npm/webpack-dev-server/src/makeWebpackConfig.ts
+--- npm/webpack-dev-server/src/makeWebpackConfig.ts.orig
++++ npm/webpack-dev-server/src/makeWebpackConfig.ts
+@@ -34,7 +34,7 @@ const removeList = [
+ // them later, but on linux the OS already does this by default. The plugin
+ // is somewhat slow, accounting for ~15% of compile time on a couple of CRA
+ // based projects (where it's included by default) tested.
+-if (process.platform === 'linux') {
++if (process.platform === 'linux' || process.platform === 'openbsd') {
+   removeList.push('CaseSensitivePathsPlugin')
+ }
+ 

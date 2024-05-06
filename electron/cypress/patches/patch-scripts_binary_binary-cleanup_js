@@ -1,0 +1,39 @@
+Index: scripts/binary/binary-cleanup.js
+--- scripts/binary/binary-cleanup.js.orig
++++ scripts/binary/binary-cleanup.js
+@@ -1,6 +1,6 @@
+ const fs = require('fs-extra')
+ const path = require('path')
+-const { consolidateDeps, getSnapshotCacheDir } = require('@tooling/v8-snapshot')
++//const { consolidateDeps, getSnapshotCacheDir } = require('@tooling/v8-snapshot')
+ const del = require('del')
+ const esbuild = require('esbuild')
+ const tempDir = require('temp-dir')
+@@ -156,11 +156,14 @@ const buildEntryPointAndCleanup = async (buildAppDir) 
+   ])
+ 
+   // 3. Gather the dependencies that could potentially be removed from the binary due to being in the snapshot or in the entry point bundle
+-  const snapshotMetadata = require(path.join(getSnapshotCacheDir(), 'snapshot-meta.json'))
++//   const snapshotMetadata = require(path.join(getSnapshotCacheDir(), 'snapshot-meta.json'))
++//   const potentiallyRemovedDependencies = [
++//     ...snapshotMetadata.healthy,
++//     ...snapshotMetadata.deferred,
++//     ...snapshotMetadata.norewrite,
++//     ...serverEntryPointBundleDependencies,
++//   ]
+   const potentiallyRemovedDependencies = [
+-    ...snapshotMetadata.healthy,
+-    ...snapshotMetadata.deferred,
+-    ...snapshotMetadata.norewrite,
+     ...serverEntryPointBundleDependencies,
+   ]
+ 
+@@ -177,7 +180,7 @@ const buildEntryPointAndCleanup = async (buildAppDir) 
+   }))
+ 
+   // 5. Consolidate dependencies that are safe to consolidate (`lodash` and `bluebird`)
+-  await consolidateDeps({ projectBaseDir: buildAppDir })
++  //await consolidateDeps({ projectBaseDir: buildAppDir })
+ }
+ 
+ const cleanupUnneededDependencies = async (buildAppDir) => {

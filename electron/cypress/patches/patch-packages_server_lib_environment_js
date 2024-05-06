@@ -1,0 +1,12 @@
+Index: packages/server/lib/environment.js
+--- packages/server/lib/environment.js.orig
++++ packages/server/lib/environment.js
+@@ -69,7 +69,7 @@ try {
+   // ensure we get the most accurate memory usage
+   app.commandLine.appendSwitch('enable-precise-memory-info')
+ 
+-  if (os.platform() === 'linux') {
++  if (os.platform() === 'linux' || os.platform() === 'openbsd') {
+     app.disableHardwareAcceleration()
+   }
+ 

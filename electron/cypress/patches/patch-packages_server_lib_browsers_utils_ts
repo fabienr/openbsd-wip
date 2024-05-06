@@ -1,0 +1,11 @@
+Index: packages/server/lib/browsers/utils.ts
+--- packages/server/lib/browsers/utils.ts.orig
++++ packages/server/lib/browsers/utils.ts
+@@ -281,7 +281,6 @@ const getBrowsers = async () => {
+ 
+   const [browsers, wkBrowser] = await Promise.all([
+     launcher.detect(),
+-    getWebKitBrowser(),
+   ])
+ 
+   if (wkBrowser) browsers.push(wkBrowser)

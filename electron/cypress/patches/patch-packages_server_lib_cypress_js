@@ -1,0 +1,11 @@
+Index: packages/server/lib/cypress.js
+--- packages/server/lib/cypress.js.orig
++++ packages/server/lib/cypress.js
+@@ -120,6 +120,7 @@ module.exports = {
+         }
+ 
+         const args = require('./util/args').toArray(options)
++        args.unshift('--no-sandbox')
+ 
+         debug('electron open arguments %o', args)
+ 

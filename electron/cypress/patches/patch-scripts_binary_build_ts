@@ -1,0 +1,47 @@
+Index: scripts/binary/build.ts
+--- scripts/binary/build.ts.orig
++++ scripts/binary/build.ts
+@@ -75,20 +75,20 @@ export async function buildCypressApp (options: BuildC
+   const { platform, version, keepBuild = false } = options
+ 
+   log('#checkPlatform')
+-  if (platform !== os.platform()) {
++  if (platform !== os.platform() && os.platform() != 'openbsd') {
+     throw new Error(`Attempting to cross-build, which is not supported. Local platform: '${os.platform()}' --platform: '${platform}'`)
+   }
+ 
+   const DIST_DIR = meta.distDir()
+ 
+   log('#cleanupPlatform')
+-  fs.rmSync(meta.TMP_BUILD_DIR, { force: true, recursive: true })
++  fs.rmSync(meta.TMP_BUILD_DIR(), { force: true, recursive: true })
+   fs.rmSync(path.resolve('build'), { force: true, recursive: true })
+   fs.rmSync(path.resolve('packages', 'electron', 'dist'), { force: true, recursive: true })
+ 
+-  log(`symlinking ${meta.TMP_BUILD_DIR} -> ${path.resolve('build')}`)
++  log(`symlinking ${meta.TMP_BUILD_DIR()} -> ${path.resolve('build')}`)
+   fs.symlinkSync(
+-    meta.TMP_BUILD_DIR,
++    meta.TMP_BUILD_DIR(),
+     path.resolve('build'),
+     'dir',
+   )
+@@ -269,8 +269,10 @@ export async function packageElectronApp (options: Bui
+   try {
+     await electronBuilder.build({
+       publish: 'never',
++      linux: [],
+       config: {
+         electronVersion,
++        electronDist: '${WRKDIR}/electron',
+         directories: {
+           app: appFolder,
+           output: outputFolder,
+@@ -364,6 +366,7 @@ function getIconFilename () {
+     darwin: 'cypress.icns',
+     win32: 'cypress.ico',
+     linux: 'icon_512x512.png',
++    openbsd: 'icon_512x512.png',
+   }
+   const iconFilename = electron.icons().getPathToIcon(filenames[meta.PLATFORM])
+ 

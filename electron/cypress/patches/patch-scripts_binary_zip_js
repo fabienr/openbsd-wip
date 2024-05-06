@@ -1,0 +1,11 @@
+Index: scripts/binary/zip.js
+--- scripts/binary/zip.js.orig
++++ scripts/binary/zip.js
+@@ -197,6 +197,7 @@ const windowsZip = (src, dest) => {
+ 
+ const zippers = {
+   linux: linuxZip,
++  openbsd: linuxZip,
+   darwin: macZip,
+   win32: windowsZip,
+ }

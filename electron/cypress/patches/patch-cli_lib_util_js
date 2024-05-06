@@ -1,0 +1,31 @@
+Index: cli/lib/util.js
+--- cli/lib/util.js.orig
++++ cli/lib/util.js
+@@ -80,6 +80,9 @@ function normalizeModuleOptions (options = {}) {
+ const isLinux = () => {
+   return os.platform() === 'linux'
+ }
++const isOpenBSD = () => {
++  return os.platform() === 'openbsd'
++}
+ 
+ /**
+    * If the DISPLAY variable is set incorrectly, when trying to spawn
+@@ -93,7 +96,7 @@ const isBrokenGtkDisplay = (str) => {
+ }
+ 
+ const isPossibleLinuxWithIncorrectDisplay = () => {
+-  return isLinux() && process.env.DISPLAY
++  return (isLinux() || isOpenBSD()) && process.env.DISPLAY
+ }
+ 
+ const logBrokenGtkDisplayWarning = () => {
+@@ -428,6 +431,8 @@ const util = {
+   },
+ 
+   isLinux,
++
++  isOpenBSD,
+ 
+   getOsVersionAsync () {
+     return Promise.try(() => {

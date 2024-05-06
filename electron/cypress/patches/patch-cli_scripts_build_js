@@ -1,0 +1,16 @@
+Index: cli/scripts/build.js
+--- cli/scripts/build.js.orig
++++ cli/scripts/build.js
+@@ -35,9 +35,9 @@ function preparePackageForNpmRelease (json, branchName
+   _.extend(json, {
+     version,
+     buildInfo: {
+-      commitBranch: branchName || process.env.CIRCLE_BRANCH || getStdout('git branch --show-current'),
+-      commitSha: getStdout('git rev-parse HEAD'),
+-      commitDate: new Date(getStdout('git show -s --format=%ci')).toISOString(),
++      commitBranch: branchName || process.env.CIRCLE_BRANCH || 'develop',
++      commitSha: '${CYPRESS_COMMIT}',
++      commitDate: '${CYPRESS_DATE}',
+       stable: false,
+     },
+     description,

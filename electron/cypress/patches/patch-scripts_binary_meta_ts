@@ -1,0 +1,74 @@
+Index: scripts/binary/meta.ts
+--- scripts/binary/meta.ts.orig
++++ scripts/binary/meta.ts
+@@ -6,6 +6,7 @@ export const platforms = {
+   darwin: 'darwin',
+   linux: 'linux',
+   windows: 'win32',
++  openbsd: 'openbsd',
+ } as const
+ 
+ export const PLATFORM = os.platform() as any
+@@ -17,7 +18,7 @@ if (!Object.values(platforms).includes(PLATFORM)) {
+ export type PlatformName = {[K in keyof typeof platforms]: typeof platforms[K]}[keyof typeof platforms]
+ 
+ export const buildRootDir = () => {
+-  return path.join(TMP_BUILD_DIR, 'build')
++  return path.join(TMP_BUILD_DIR(), 'build')
+ }
+ 
+ export const buildLinkDir = () => {
+@@ -42,7 +43,7 @@ export const buildDir = function (...args: string[]) {
+         default:
+           return path.resolve(root, 'mac', ...args)
+       }
+-    case 'linux':
++    case 'linux': case 'openbsd':
+       // https://github.com/cypress-io/cypress/pull/19498
+       switch (os.arch()) {
+         case 'arm64':
+@@ -57,11 +58,18 @@ export const buildDir = function (...args: string[]) {
+   }
+ }
+ 
+-export const TMP_BUILD_DIR = path.join(os.tmpdir(), 'cypress-build', PLATFORM)
++export const TMP_BUILD_DIR = function () {
++  switch (PLATFORM) {
++    case 'openbsd':
++      return path.join(os.tmpdir(), 'cypress-build', 'linux')
++    default:
++      return path.join(os.tmpdir(), 'cypress-build', PLATFORM)
++  }
++}
+ 
+ // returns a path into the /dist directory
+ export const distDir = function (...args: string[]) {
+-  return path.resolve(TMP_BUILD_DIR, 'dist', ...args)
++  return path.resolve(TMP_BUILD_DIR(), 'dist', ...args)
+ }
+ 
+ // returns folder to zip before uploading
+@@ -70,6 +78,7 @@ export const zipDir = function () {
+     case 'darwin':
+       return buildDir('Cypress.app')
+     case 'linux':
++    case 'openbsd':
+     case 'win32':
+       return buildDir()
+     default:
+@@ -84,6 +93,7 @@ export const buildAppDir = function (...args: string[]
+     case 'darwin':
+       return buildDir('Cypress.app', 'Contents', 'resources', 'app', ...args)
+     case 'linux':
++    case 'openbsd':
+     case 'win32':
+       return buildDir('resources', 'app', ...args)
+     default:
+@@ -96,6 +106,7 @@ export const buildAppExecutable = function () {
+     case 'darwin':
+       return buildDir('Cypress.app', 'Contents', 'MacOS', 'Cypress')
+     case 'linux':
++    case 'openbsd':
+     case 'win32':
+       return buildDir('Cypress')
+     default:

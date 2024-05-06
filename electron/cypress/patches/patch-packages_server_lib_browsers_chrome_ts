@@ -1,0 +1,12 @@
+Index: packages/server/lib/browsers/chrome.ts
+--- packages/server/lib/browsers/chrome.ts.orig
++++ packages/server/lib/browsers/chrome.ts
+@@ -379,7 +379,7 @@ export = {
+   _getArgs (browser: Browser, options: BrowserLaunchOpts, port: string) {
+     const args = ([] as string[]).concat(DEFAULT_ARGS)
+ 
+-    if (os.platform() === 'linux') {
++    if (os.platform() === 'linux' || os.platform() === 'openbsd') {
+       args.push('--disable-gpu')
+       args.push('--no-sandbox')
+     }

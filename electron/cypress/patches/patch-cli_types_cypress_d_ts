@@ -1,0 +1,12 @@
+Index: cli/types/cypress.d.ts
+--- cli/types/cypress.d.ts.orig
++++ cli/types/cypress.d.ts
+@@ -3252,7 +3252,7 @@ declare namespace Cypress {
+     /**
+      * The platform Cypress is running on.
+      */
+-    platform: 'linux' | 'darwin' | 'win32'
++    platform: 'linux' | 'darwin' | 'win32' | 'openbsd'
+     remote: RemoteState
+     /**
+      * The Cypress version being used.

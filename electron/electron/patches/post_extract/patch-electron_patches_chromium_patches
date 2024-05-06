@@ -1,0 +1,9 @@
+--- electron/patches/chromium/.patches.bak	Sat Apr 13 16:46:06 2024
++++ electron/patches/chromium/.patches	Sat Apr 13 16:46:33 2024
+@@ -148,6 +148,5 @@
+ m122_cherry_pick_cve-2024-25062_libxml_fix.patch
+ allowlist_devtools_for_file_access_permission.patch
+ update_crashpad_to_37afd37401253ebcebcf6e07ce15c8cfecb1a1cc.patch
+-m122_webcodecs_disable_async_videoframe_readback_to_mitigate_a.patch
+ fix_paintimage_deserialization_arbitrary-read_issue.patch
+ reland_sensors_winrt_call_onreadingchangedcallback_via.patch

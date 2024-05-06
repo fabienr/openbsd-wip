@@ -1,0 +1,10 @@
+Index: packages/types/src/platform.ts
+--- packages/types/src/platform.ts.orig
++++ packages/types/src/platform.ts
+@@ -1,5 +1,5 @@
+ /// <reference types="node" />
+-export const SUPPORTED_PLATFORMS = ['linux', 'darwin', 'win32'] as const
++export const SUPPORTED_PLATFORMS = ['linux', 'darwin', 'win32', 'openbsd'] as const
+ 
+ export type PlatformName = typeof SUPPORTED_PLATFORMS[number]
+ 

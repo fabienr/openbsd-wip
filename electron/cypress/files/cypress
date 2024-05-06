@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ${TRUEPREFIX}/bin/electron_nosandbox \
+	--app="${TRUEPREFIX}/electron/resources/cypress" $@

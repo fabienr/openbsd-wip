@@ -1,0 +1,12 @@
+Index: cli/lib/exec/xvfb.js
+--- cli/lib/exec/xvfb.js.orig
++++ cli/lib/exec/xvfb.js
+@@ -65,7 +65,7 @@ module.exports = {
+       return false // xvfb required for electron processes only.
+     }
+ 
+-    if (os.platform() !== 'linux') {
++    if (os.platform() !== 'linux' && os.platform() !== 'openbsd') {
+       return false
+     }
+ 

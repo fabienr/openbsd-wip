@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ${TRUEPREFIX}/bin/electron \
+	--app="${TRUEPREFIX}/electron/resources/stretchly.asar" $@

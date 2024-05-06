@@ -1,0 +1,4 @@
+#!/bin/sh
+
+NODE_ENV=production ${TRUEPREFIX}/bin/electron --no-sandbox \
+	--app="${TRUEPREFIX}/electron/resources/signal-desktop.asar" $@

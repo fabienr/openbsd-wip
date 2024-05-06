@@ -1,0 +1,22 @@
+bin/signal-desktop
+electron/resources/signal-desktop-update.yml
+electron/resources/signal-desktop.asar
+electron/resources/signal-desktop.asar.unpacked/
+electron/resources/signal-desktop.asar.unpacked/node_modules/
+electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/
+electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/better-sqlite3/
+electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/better-sqlite3/build/
+electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/better-sqlite3/build/Release/
+@bin electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/better-sqlite3/build/Release/better_sqlite3.node
+electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/libsignal-client/
+electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/libsignal-client/prebuilds/
+electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/libsignal-client/prebuilds/openbsd-x64/
+@bin electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/libsignal-client/prebuilds/openbsd-x64/node.napi.node
+electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/ringrtc/
+electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/ringrtc/build/
+electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/ringrtc/build/openbsd/
+@bin electron/resources/signal-desktop.asar.unpacked/node_modules/@signalapp/ringrtc/build/openbsd/libringrtc-x64.node
+share/applications/signal.desktop
+share/pixmaps/
+share/pixmaps/signal-desktop.png
+@tag update-desktop-database

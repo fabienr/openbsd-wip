@@ -1,0 +1,28 @@
+Index: launcher/src/launcher_wizard.js
+--- launcher/src/launcher_wizard.js.orig
++++ launcher/src/launcher_wizard.js
+@@ -266,14 +266,16 @@ class Wizard extends EventEmitter {
+ 		}
+ 
+ 		let enginePath;
+-		if (config.launch.engine_path != null) {
+-			enginePath = config.launch.engine_path;
+-		} else {
+-			const engineName = config.launch.engine || config.downloads.engines[0];
+-			if (engineName != null) {
+-				enginePath = path.join(springPlatform.writePath, 'engine', engineName, springPlatform.springBin);
+-			}
+-		}
++		// XXX force use of system engine
++		// if (config.launch.engine_path != null) {
++		// 	enginePath = config.launch.engine_path;
++		// } else {
++		// 	const engineName = config.launch.engine || config.downloads.engines[0];
++		// 	if (engineName != null) {
++		// 		enginePath = path.join(springPlatform.writePath, 'engine', engineName, springPlatform.springBin);
++		// 	}
++		// }
++		enginePath = '/usr/local/bin/spring';
+ 		if (enginePath != null) {
+ 			steps.push({
+ 				name: 'start',

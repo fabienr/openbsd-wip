@@ -1,0 +1,4 @@
+#!/bin/sh
+
+USE_SYSTEM_7ZA=true exec ${TRUEPREFIX}/bin/electron \
+	--app="${TRUEPREFIX}/electron/resources/byar_chobby_launcher.asar" $@

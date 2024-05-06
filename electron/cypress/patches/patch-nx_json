@@ -1,0 +1,9 @@
+Index: nx.json
+--- nx.json.orig
++++ nx.json
+@@ -1,4 +1,5 @@
+ {
++  "neverConnectToCloud": true,
+   "tasksRunnerOptions": {
+     "default": {
+       "runner": "nx-cloud",

@@ -1,0 +1,12 @@
+Index: system-tests/projects/e2e/cypress/e2e/config_passing.cy.js
+--- system-tests/projects/e2e/cypress/e2e/config_passing.cy.js.orig
++++ system-tests/projects/e2e/cypress/e2e/config_passing.cy.js
+@@ -6,7 +6,7 @@ describe('Cypress static methods + props', () => {
+ 
+   it('.platform', () => {
+     expect(Cypress.platform).to.be.a('string')
+-    expect(Cypress.platform).to.be.oneOf(['darwin', 'linux', 'win32'])
++    expect(Cypress.platform).to.be.oneOf(['darwin', 'linux', 'win32', 'openbsd'])
+   })
+ 
+   it('.arch', () => {

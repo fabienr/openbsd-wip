@@ -1,0 +1,21 @@
+Index: ts/test-node/types/Settings_test.ts
+--- ts/test-node/types/Settings_test.ts.orig
++++ ts/test-node/types/Settings_test.ts
+@@ -128,7 +128,7 @@ describe('Settings', () => {
+     it('returns false on macOS', () => {
+       sandbox.stub(process, 'platform').value('darwin');
+       const OS = getOSFunctions(os.release());
+-      assert.isFalse(Settings.isSystemTraySupported(OS, '1.2.3'));
++      assert.isNotOk(Settings.isSystemTraySupported(OS, '1.2.3'));
+     });
+ 
+     it('returns true on Windows 8', () => {
+@@ -141,7 +141,7 @@ describe('Settings', () => {
+     it('returns false on Linux production', () => {
+       sandbox.stub(process, 'platform').value('linux');
+       const OS = getOSFunctions(os.release());
+-      assert.isFalse(Settings.isSystemTraySupported(OS, '1.2.3'));
++      assert.isNotOk(Settings.isSystemTraySupported(OS, '1.2.3'));
+     });
+ 
+     it('returns true on Linux beta', () => {

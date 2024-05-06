@@ -1,0 +1,11 @@
+Index: packages/launcher/lib/detect.ts
+--- packages/launcher/lib/detect.ts.orig
++++ packages/launcher/lib/detect.ts
+@@ -61,6 +61,7 @@ type Helpers = {
+ const helpers: Helpers = {
+   darwin: darwinHelper,
+   linux: linuxHelper,
++  openbsd: linuxHelper,
+   win32: windowsHelper,
+ }
+ 

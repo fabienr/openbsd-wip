@@ -1,0 +1,30 @@
+Index: cli/lib/tasks/state.js
+--- cli/lib/tasks/state.js.orig
++++ cli/lib/tasks/state.js
+@@ -12,7 +12,7 @@ const getPlatformExecutable = () => {
+ 
+   switch (platform) {
+     case 'darwin': return 'Contents/MacOS/Cypress'
+-    case 'linux': return 'Cypress'
++    case 'linux': case 'openbsd': return 'Cypress'
+     case 'win32': return 'Cypress.exe'
+       // TODO handle this error using our standard
+     default: throw new Error(`Platform: "${platform}" is not supported.`)
+@@ -24,7 +24,7 @@ const getPlatFormBinaryFolder = () => {
+ 
+   switch (platform) {
+     case 'darwin': return 'Cypress.app'
+-    case 'linux': return 'Cypress'
++    case 'linux': case 'openbsd': return 'Cypress'
+     case 'win32': return 'Cypress'
+       // TODO handle this error using our standard
+     default: throw new Error(`Platform: "${platform}" is not supported.`)
+@@ -36,7 +36,7 @@ const getBinaryPkgPath = (binaryDir) => {
+ 
+   switch (platform) {
+     case 'darwin': return path.join(binaryDir, 'Contents', 'Resources', 'app', 'package.json')
+-    case 'linux': return path.join(binaryDir, 'resources', 'app', 'package.json')
++    case 'linux': case 'openbsd': return path.join(binaryDir, 'resources', 'app', 'package.json')
+     case 'win32': return path.join(binaryDir, 'resources', 'app', 'package.json')
+       // TODO handle this error using our standard
+     default: throw new Error(`Platform: "${platform}" is not supported.`)

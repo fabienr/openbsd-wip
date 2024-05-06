@@ -1,0 +1,17 @@
+Index: packages/server/lib/modes/interactive.ts
+--- packages/server/lib/modes/interactive.ts.orig
++++ packages/server/lib/modes/interactive.ts
+@@ -127,6 +127,13 @@ export = {
+         transparent: false,
+         icon: image.createFromPath(cyIcons.getPathToIcon('icon_64x64.png')),
+       },
++
++      openbsd: {
++        show: true,
++        frame: true,
++        transparent: false,
++        icon: image.createFromPath(cyIcons.getPathToIcon('icon_64x64.png')),
++      },
+     }
+ 
+     return args[os.platform()]

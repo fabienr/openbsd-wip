@@ -1,0 +1,12 @@
+Index: packages/launcher/lib/known-browsers.ts
+--- packages/launcher/lib/known-browsers.ts.orig
++++ packages/launcher/lib/known-browsers.ts
+@@ -45,7 +45,7 @@ export const knownBrowsers: Browser[] = [
+     channel: 'stable',
+     displayName: 'Chromium',
+     versionRegex: /Chromium (\S+)/m,
+-    binary: ['chromium-browser', 'chromium'],
++    binary: ['chromium-browser', 'chromium', 'chrome'],
+     minSupportedVersion: MIN_CHROME_VERSION,
+   },
+   {

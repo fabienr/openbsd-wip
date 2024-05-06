@@ -1,0 +1,21 @@
+Index: libsignal/rust/zkgroup/Cargo.toml
+--- libsignal/rust/zkgroup/Cargo.toml.orig
++++ libsignal/rust/zkgroup/Cargo.toml
+@@ -36,11 +36,12 @@ hkdf = "0.12"
+ base64 = { version = "0.21", optional = true }
+ rand = { version = "0.8", optional = true }
+ 
+-[dependencies.curve25519-dalek]
+-git = 'https://github.com/signalapp/curve25519-dalek'
+-tag = 'signal-curve25519-4.1.1'
+-features = ["serde"]
+-version = "4.1.1"
++curve25519-dalek = "*"
++#[dependencies.curve25519-dalek]
++#git = 'https://github.com/signalapp/curve25519-dalek'
++#tag = 'signal-curve25519-4.1.1'
++#features = ["serde"]
++#version = "4.1.1"
+ 
+ [dev-dependencies]
+ uuid = { version = "1", features = ["v5"] }

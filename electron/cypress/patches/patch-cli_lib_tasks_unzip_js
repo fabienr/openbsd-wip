@@ -1,0 +1,12 @@
+Index: cli/lib/tasks/unzip.js
+--- cli/lib/tasks/unzip.js.orig
++++ cli/lib/tasks/unzip.js
+@@ -177,7 +177,7 @@ const unzip = ({ zipFilePath, installDir, progress }) 
+         switch (os.platform()) {
+           case 'darwin':
+             return unzipWithOsx()
+-          case 'linux':
++          case 'linux': case 'openbsd':
+             return unzipWithUnzipTool()
+           case 'win32':
+             return unzipWithNode()

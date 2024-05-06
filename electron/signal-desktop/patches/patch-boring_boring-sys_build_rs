@@ -1,0 +1,38 @@
+Index: boring/boring-sys/build.rs
+--- boring/boring-sys/build.rs.orig
++++ boring/boring-sys/build.rs
+@@ -450,15 +450,15 @@ fn get_extra_clang_args_for_bindgen() -> Vec<String> {
+ fn ensure_patches_applied() -> io::Result<()> {
+     let out_dir = env::var("OUT_DIR").unwrap();
+     let mut lock_file = LockFile::open(&PathBuf::from(&out_dir).join(".patch_lock"))?;
+-    let src_path = get_boringssl_source_path();
+-    let has_git = Path::new(&src_path).join(".git").exists();
++//  let src_path = get_boringssl_source_path();
++//  let has_git = Path::new(&src_path).join(".git").exists();
+ 
+     lock_file.lock()?;
+ 
+     // NOTE: init git in the copied files, so we can apply patches
+-    if !has_git {
+-        run_command(Command::new("git").args(["init"]).current_dir(&src_path))?;
+-    }
++//  if !has_git {
++//      run_command(Command::new("git").args(["init"]).current_dir(&src_path))?;
++//  }
+ 
+     if cfg!(feature = "pq-experimental") {
+         println!("cargo:warning=applying experimental post quantum crypto patch to boringssl");
+@@ -482,11 +482,9 @@ fn apply_patch(patch_name: &str) -> io::Result<()> {
+         .canonicalize()?;
+ 
+     run_command(
+-        Command::new("git")
++        Command::new("patch")
+             .args([
+-                "apply",
+-                "-v",
+-                "--whitespace=fix",
++                "-p 1",
+                 &cmd_path.display().to_string(),
+             ])
+             .current_dir(src_path),

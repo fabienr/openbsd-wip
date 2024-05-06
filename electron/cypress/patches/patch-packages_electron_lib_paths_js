@@ -1,0 +1,19 @@
+Index: packages/electron/lib/paths.js
+--- packages/electron/lib/paths.js.orig
++++ packages/electron/lib/paths.js
+@@ -6,6 +6,7 @@ const distPath = 'dist/Cypress'
+ const execPath = {
+   darwin: 'Cypress.app/Contents/MacOS/Cypress',
+   freebsd: 'Cypress',
++  openbsd: 'Cypress',
+   linux: 'Cypress',
+   win32: 'Cypress.exe',
+ }
+@@ -13,6 +14,7 @@ const execPath = {
+ const resourcesPath = {
+   darwin: 'Cypress.app/Contents/Resources',
+   freebsd: 'resources',
++  openbsd: 'resources',
+   linux: 'resources',
+   win32: 'resources',
+ }

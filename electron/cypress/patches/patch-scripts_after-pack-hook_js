@@ -1,0 +1,117 @@
+Index: scripts/after-pack-hook.js
+--- scripts/after-pack-hook.js.orig
++++ scripts/after-pack-hook.js
+@@ -3,8 +3,8 @@ const { join } = require('path')
+ const glob = require('glob')
+ const os = require('os')
+ const path = require('path')
+-const { setupV8Snapshots } = require('@tooling/v8-snapshot')
+-const { flipFuses, FuseVersion, FuseV1Options } = require('@electron/fuses')
++//const { setupV8Snapshots } = require('@tooling/v8-snapshot')
++//const { flipFuses, FuseVersion, FuseV1Options } = require('@electron/fuses')
+ const { buildEntryPointAndCleanup, cleanupUnneededDependencies } = require('./binary/binary-cleanup')
+ const { getIntegrityCheckSource, getBinaryEntryPointSource, getBinaryByteNodeEntryPointSource, getEncryptionFileSource, getCloudEnvironmentFileSource, validateEncryptionFile, getProtocolFileSource, validateCloudEnvironmentFile, validateProtocolFile, getIndexJscHash, DUMMY_INDEX_JSC_HASH } = require('./binary/binary-sources')
+ const verify = require('../cli/lib/tasks/verify')
+@@ -39,6 +39,7 @@ module.exports = async function (params) {
+     const buildSubfoldersPerPlatform = {
+       darwin: join('Cypress.app', 'Contents', 'Resources', 'app'),
+       linux: join('resources', 'app'),
++      openbsd: join('resources', 'app'),
+       win32: join('resources', 'app'), // TODO check this path
+     }
+     const buildSubfolder = buildSubfoldersPerPlatform[os.platform()]
+@@ -64,11 +65,11 @@ module.exports = async function (params) {
+ 
+     console.log('all node_modules subfolders copied to', outputFolder)
+ 
+-    const exePathPerPlatform = {
+-      darwin: join(params.appOutDir, 'Cypress.app', 'Contents', 'MacOS', 'Cypress'),
+-      linux: join(params.appOutDir, 'Cypress'),
+-      win32: join(params.appOutDir, 'Cypress.exe'),
+-    }
++//     const exePathPerPlatform = {
++//       darwin: join(params.appOutDir, 'Cypress.app', 'Contents', 'MacOS', 'Cypress'),
++//       linux: join(params.appOutDir, 'Cypress'),
++//       win32: join(params.appOutDir, 'Cypress.exe'),
++//     }
+ 
+     if (!['1', 'true'].includes(process.env.DISABLE_SNAPSHOT_REQUIRE)) {
+       const binaryByteNodeEntryPointSource = await getBinaryByteNodeEntryPointSource()
+@@ -101,25 +102,25 @@ module.exports = async function (params) {
+         validateProtocolFile(cloudProtocolFilePath),
+       ])
+ 
+-      await flipFuses(
+-        exePathPerPlatform[os.platform()],
+-        {
+-          version: FuseVersion.V1,
+-          resetAdHocDarwinSignature: os.platform() === 'darwin' && os.arch() === 'arm64',
+-          [FuseV1Options.LoadBrowserProcessSpecificV8Snapshot]: true,
+-          [FuseV1Options.EnableNodeCliInspectArguments]: false,
+-        },
+-      )
++//       await flipFuses(
++//         exePathPerPlatform[os.platform()],
++//         {
++//           version: FuseVersion.V1,
++//           resetAdHocDarwinSignature: os.platform() === 'darwin' && os.arch() === 'arm64',
++//           [FuseV1Options.LoadBrowserProcessSpecificV8Snapshot]: true,
++//           [FuseV1Options.EnableNodeCliInspectArguments]: false,
++//         },
++//       )
+ 
+       process.env.V8_UPDATE_METAFILE = '1'
+ 
+       // Build out the entry point and clean up prior to setting up v8 snapshots so that the state of the binary is correct
+       await buildEntryPointAndCleanup(outputFolder)
+       await cleanupUnneededDependencies(outputFolder)
+-      await setupV8Snapshots({
+-        cypressAppPath: params.appOutDir,
+-        integrityCheckSource,
+-      })
++//       await setupV8Snapshots({
++//         cypressAppPath: params.appOutDir,
++//         integrityCheckSource,
++//       })
+ 
+       // Use Cypress to create the JSC entry point file
+       await createJscFromCypress()
+@@ -130,23 +131,23 @@ module.exports = async function (params) {
+       await fs.remove(path.join(outputFolder, 'packages/server/index.js'))
+       await fs.writeFile(path.join(outputFolder, 'index.js'), binaryEntryPointSource)
+ 
+-      await flipFuses(
+-        exePathPerPlatform[os.platform()],
+-        {
+-          version: FuseVersion.V1,
+-          [FuseV1Options.LoadBrowserProcessSpecificV8Snapshot]: true,
+-          [FuseV1Options.EnableNodeCliInspectArguments]: false,
+-        },
+-      )
++//       await flipFuses(
++//         exePathPerPlatform[os.platform()],
++//         {
++//           version: FuseVersion.V1,
++//           [FuseV1Options.LoadBrowserProcessSpecificV8Snapshot]: true,
++//           [FuseV1Options.EnableNodeCliInspectArguments]: false,
++//         },
++//       )
+ 
+       // Regenerate the v8 snapshots. This time, we replace the JSC hash with what we calculated earlier. We use the existing snapshot script to avoid having to go through the entire v8 snapshot process
+-      await setupV8Snapshots({
+-        cypressAppPath: params.appOutDir,
+-        useExistingSnapshotScript: true,
+-        updateSnapshotScriptContents: (contents) => {
+-          return contents.replace(DUMMY_INDEX_JSC_HASH, indexJscHash)
+-        },
+-      })
++//       await setupV8Snapshots({
++//         cypressAppPath: params.appOutDir,
++//         useExistingSnapshotScript: true,
++//         updateSnapshotScriptContents: (contents) => {
++//           return contents.replace(DUMMY_INDEX_JSC_HASH, indexJscHash)
++//         },
++//       })
+     } else {
+       console.log(`value of DISABLE_SNAPSHOT_REQUIRE was ${process.env.DISABLE_SNAPSHOT_REQUIRE}. Skipping snapshot require...`)
+       await cleanupUnneededDependencies(outputFolder)

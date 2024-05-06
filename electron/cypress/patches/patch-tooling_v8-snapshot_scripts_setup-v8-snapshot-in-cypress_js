@@ -1,0 +1,12 @@
+Index: tooling/v8-snapshot/scripts/setup-v8-snapshot-in-cypress.js
+--- tooling/v8-snapshot/scripts/setup-v8-snapshot-in-cypress.js.orig
++++ tooling/v8-snapshot/scripts/setup-v8-snapshot-in-cypress.js
+@@ -1,7 +1,6 @@
+ process.env.DEBUG = process.env.DEBUG ?? 'cypress:snapgen:info'
+ 
+-const { setupV8Snapshots } = require('../dist/setup')
+-
+ if (!['1', 'true'].includes(process.env.DISABLE_SNAPSHOT_REQUIRE)) {
++  const { setupV8Snapshots } = require('../dist/setup')
+   setupV8Snapshots({ supportCypressInCypress: true })
+ }
